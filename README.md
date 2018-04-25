@@ -8,3 +8,6 @@ i3wm starts in *default* mode where the keybindings are like the usual i3 keybin
 
 In this mode, you cannot interact with your applications. When the terminal is open, typing will trigger i3wm keybindings rather than input characters in the terminal. To interact with the applications, you need to switch to *insert* mode by typing `Space`. To switch back to *normal* mode, type `$mod+Space`.
 
+# Installation
+
+Copy `config_modal` to your i3wm configuration file.
