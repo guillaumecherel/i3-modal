@@ -2,7 +2,9 @@
 
 *This config file was adapted to the bépo keyboard layout. The same approach can easily be reproduced with any other layout.*
 
-This aim of this configuration file is to avoid the use of the modifier key which requires curling fingers in complicated positions. There are two modes: the *default* mode to interact with i3wm and an *insert* mode to interact with the focused application.
+This aim of this configuration file is to avoid the use of the modifier key which requires curling fingers in complicated positions. There are two modes: the *default* mode to interact with i3wm and an *insert* mode to interact with the focused application. 
+
+Modes also reduce collision of keybindings between applications: the modifier key is only used to go back to default mode from insert mode with `$mod+space`. This means that you can safely use it as a keybinding in any other application.
 
 i3wm starts in *default* mode where the keybindings are like the usual i3 keybindings without the modifier key. For example, to open a terminal, rather than typing `$mod+Enter`, just type `Enter`. 
 
