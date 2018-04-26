@@ -1,0 +1,6 @@
+#!/usr/bin/fish
+
+dmenu_history $argv \
+| while read cmd
+    echo -n (eval $cmd) | xdotool type --clearmodifiers --delay 0 --file -
+  end
