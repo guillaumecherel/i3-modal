@@ -46,12 +46,13 @@ bindsym Return exec "/home/guillaume/.local/bin/st"
 # kill focused window
 bindsym Shift+B kill
 
-# start dmenu (a program launcher)
-bindsym i exec /usr/bin/fish -c dmenu_run_history -i
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-bindsym d exec --no-startup-id i3-dmenu-desktop
+# start dmenu (a program launcher) and switch to insert mode if any item was selected and run them
+bindsym i exec --no-startup-id /usr/bin/fish -c dmenu_run_history -i; mode insert
+# bindsym i exec --no-startup-id "/usr/bin/fish -c \\"set -e flag; dmenu_history -i | while read out; set flag; fish -c $out; end; if set -q flag; i3-msg mode insert; end\\""
+
+# paste command output and switch to insert mode if any output was received
+bindsym d mode insert; exec --no-startup-id /usr/bin/fish -c dmenu_paste_history -i
+#bindsym d mode insert; exec --no-startup-id "/usr/bin/fish -c \\"set -e flag; dmenu_history -i | while read out; set flag; begin; fish -c $out | xdotool type --clearmodifiers --delay 0 --file -;end ; end; if set -q flag; i3-msg mode insert; end\\""
 
 # change focus
 bindsym t focus left
