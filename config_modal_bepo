@@ -18,14 +18,13 @@ exec --no-startup-id emacs --daemon
 # Not really needed, except for xdotool:
 exec --no-startup-id setxkbmap fr bepo
 
-# Modifier key
-set $mod Mod4
-
 # Applications
 set $terminal /home/guillaume/.local/bin/st
 set $editor /usr/bin/emacsclient -c
 set $web /home/guillaume/.local/bin/firefox
 set $email /home/guillaume/.local/bin/astroid
+set $shell /usr/bin/fish
+set $rofi /usr/bin/rofi
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -44,39 +43,46 @@ font pango:Inconsolata 10
 # font, it doesn’t scale on retina/hidpi displays.
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-## window commands that are frequently used
-
-# change focus
-bindsym $mod+t focus left
-bindsym $mod+s focus down
-bindsym $mod+r focus up
-bindsym $mod+n focus right
-
-# move focused window
-bindsym $mod+Shift+t move left
-bindsym $mod+Shift+s move down
-bindsym $mod+Shift+r move up
-bindsym $mod+Shift+n move right
-
-bindsym $mod+Tab workspace back_and_forth
+floating_modifier Mod4
 
 
 # Modes
 
-bindsym $mod+space mode "$mode_switch"
-set $mode_switch Mode [space] launcher, [n]avigate, move [c]ontainer, [l]ayout, move [w]orkspace, [r]esize windows, [i]3 special
+bindsym Super_L mode "$mode_switch"
+bindsym Super_R mode "$mode_switch"
+# bindsym $mod+space mode "$mode_switch"
+set $mode_switch Mode [space] launcher, [ctsr<arrow><workspace>] navigate, [m]ove container, [l]ayout, move [w]orkspace, resi[z]e container, [i]3 special
 mode "$mode_switch" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 
     bindsym space mode "$mode_launcher"
-    bindsym n mode "$mode_navigate"
-    bindsym c mode "$mode_move_container"
+    # bindsym j exec --no-startup-id $shell -c "dmenu_jump -i -l 20"; mode "default"
+    bindsym j exec $rofi -location 2 -width 100 -show window; mode default
+
+    bindsym c focus left; mode "$mode_navigate"
+    bindsym t focus down; mode "$mode_navigate"
+    bindsym s focus up; mode "$mode_navigate"
+    bindsym r focus right; mode "$mode_navigate"
+    bindsym Left focus left; mode "$mode_navigate"
+    bindsym Down focus down; mode "$mode_navigate"
+    bindsym Up focus up; mode "$mode_navigate"
+    bindsym Right focus right; mode "$mode_navigate"
+    bindsym quotedbl workspace 1; mode "$mode_navigate"
+    bindsym guillemotleft workspace 2; mode "$mode_navigate"
+    bindsym guillemotright workspace 3; mode "$mode_navigate"
+    bindsym parenleft workspace 4; mode "$mode_navigate"
+    bindsym parenright workspace 5; mode "$mode_navigate"
+    bindsym at workspace 6; mode "$mode_navigate"
+    bindsym plus workspace 7; mode "$mode_navigate"
+    bindsym minus workspace 8; mode "$mode_navigate"
+    bindsym slash workspace 9; mode "$mode_navigate"
+    bindsym asterisk workspace 10; mode "$mode_navigate"
+
+    bindsym m mode "$mode_move_container"
     bindsym l mode "$mode_layout"
     bindsym w mode "$mode_move_workspace"
-    bindsym r mode "$mode_window_resize"
+    bindsym z mode "$mode_window_resize"
     bindsym i mode "$mode_i3_special"
 }
 
@@ -90,17 +96,19 @@ mode "$mode_launcher" {
     bindsym Return exec "$terminal" ; mode "default"
 
     # start other frequent applications
-    bindsym w exec "$web"
-    bindsym m exec "$email"
-    bindsym e exec "$editor"
+    bindsym w exec "$web"; mode "default"
+    bindsym m exec "$email"; mode "default" 
+    bindsym e exec "$editor"; mode "default"
 
     # start space (a program launcher) and switch to insert mode if any item was selected and run them
-    bindsym r exec --no-startup-id /usr/bin/fish -c dmenu_run_history -i; mode default
-    # bindsym i exec --no-startup-id "/usr/bin/fish -c \\"set -e flag; dmenu_history -i | while read out; set flag; fish -c $out; end; if set -q flag; i3-msg mode default; end\\""
+    bindsym r exec $rofi -location 2 -width 100 -show run; mode default
+    # bindsym r exec $shell -c "dmenu_run_history -i"; mode default
+    # bindsym i exec "$shell -c \\"set -e flag; dmenu_history -i | while read out; set flag; fish -c $out; end; if set -q flag; i3-msg mode default; end\\""
 
     # paste command output and switch to insert mode if any output was received
-    bindsym p mode default; exec --no-startup-id /usr/bin/fish -c dmenu_paste_history -i
-    #bindsym d mode default; exec --no-startup-id "/usr/bin/fish -c \\"set -e flag; dmenu_history -i | while read out; set flag; begin; fish -c $out | xdotool type --clearmodifiers --delay 0 --file -;end ; end; if set -q flag; i3-msg mode insert; end\\""
+    bindsym p mode default; exec $rofi -show run -run-command '/bin/sh -c \\"echo -n `{cmd}` | xdotool type --clearmodifiers --delay 0 --file -\\"'
+    # bindsym p mode default; exec $shell -c "dmenu_paste_history -i"
+    #bindsym d mode default; exec "$shell -c \\"set -e flag; dmenu_history -i | while read out; set flag; begin; fish -c $out | xdotool type --clearmodifiers --delay 0 --file -;end ; end; if set -q flag; i3-msg mode insert; end\\""
 }
 
 set $mode_i3_special [C] reload configuration, [R] restart, [X] exit
