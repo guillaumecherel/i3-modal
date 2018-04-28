@@ -55,6 +55,8 @@ set $mode_switch Mode [space] launcher, [ctsr<arrow><workspace>] navigate, [m]ov
 mode "$mode_switch" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym Super_L mode "default"
+    bindsym Super_R mode "default"
 
     bindsym space mode "$mode_launcher"
     # bindsym j exec --no-startup-id $shell -c "dmenu_jump -i -l 20"; mode "default"
@@ -86,14 +88,15 @@ mode "$mode_switch" {
     bindsym i mode "$mode_i3_special"
 }
 
-set $mode_launcher Launch application [Return] terminal, [e]ditor, [w]eb, e[mail], [r]un command, [p] paste command output
+set $mode_launcher Launch application [space] terminal, [e]ditor, [w]eb, e[mail], [r]un command, [p] paste command output
 mode "$mode_launcher" {
     bindsym Escape mode "default"
-    bindsym space mode "$mode_switch"
+    bindsym Return mode "default"
+    bindsym Super_L mode "$mode_switch"
+    bindsym Super_R mode "$mode_switch"
 
     # start a terminal
-    # bindsym Return exec i3-sensible-terminal
-    bindsym Return exec "$terminal" ; mode "default"
+    bindsym space exec "$terminal" ; mode "default"
 
     # start other frequent applications
     bindsym w exec "$web"; mode "default"
@@ -106,7 +109,7 @@ mode "$mode_launcher" {
     # bindsym i exec "$shell -c \\"set -e flag; dmenu_history -i | while read out; set flag; fish -c $out; end; if set -q flag; i3-msg mode default; end\\""
 
     # paste command output and switch to insert mode if any output was received
-    bindsym p mode default; exec $rofi -show run -run-command '/bin/sh -c \\"echo -n `{cmd}` | xdotool type --clearmodifiers --delay 0 --file -\\"'
+    bindsym p mode default; exec $rofi -location 2 -width 100 -show run -run-command '/bin/sh -c \\"echo -n `{cmd}` | xdotool type --clearmodifiers --delay 0 --file -\\"'
     # bindsym p mode default; exec $shell -c "dmenu_paste_history -i"
     #bindsym d mode default; exec "$shell -c \\"set -e flag; dmenu_history -i | while read out; set flag; begin; fish -c $out | xdotool type --clearmodifiers --delay 0 --file -;end ; end; if set -q flag; i3-msg mode insert; end\\""
 }
@@ -115,7 +118,8 @@ set $mode_i3_special [C] reload configuration, [R] restart, [X] exit
 mode "$mode_i3_special" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym space mode "$mode_switch"
+    bindsym Super_L mode "$mode_switch"
+    bindsym Super_R mode "$mode_switch"
 
     # reload the configuration file
     bindsym Shift+C reload
@@ -130,7 +134,8 @@ set $mode_navigate Navigate [ctsr] or [<arrow>] move focus, [<workspace>] switch
 mode "$mode_navigate" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym space mode "$mode_switch"
+    bindsym Super_L mode "$mode_switch"
+    bindsym Super_R mode "$mode_switch"
   
     # change focus
     bindsym c focus left
@@ -170,7 +175,8 @@ set $mode_move_container Move container [ctsr] or [<arrows>], [<workspace>] to w
 mode "$mode_move_container" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym space mode "$mode_switch"
+    bindsym Super_L mode "$mode_switch"
+    bindsym Super_R mode "$mode_switch"
 
     # move focused window
     bindsym c move left
@@ -213,7 +219,8 @@ set $mode_layout Layout split [h]orizontally, [v]ertically, [f]ullscreen, [s]tac
 mode "$mode_layout" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym space mode "$mode_switch"
+    bindsym Super_L mode "$mode_switch"
+    bindsym Super_R mode "$mode_switch"
 
     # split in horizontal orientation
     bindsym h split h
@@ -237,7 +244,8 @@ set $mode_move_workspace Get workspace from [<workspace>] or move to output [cts
 mode "$mode_move_workspace" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym space mode "$mode_switch"
+    bindsym Super_L mode "$mode_switch"
+    bindsym Super_R mode "$mode_switch"
 
     # move whole workspace to outputs
     bindsym c move workspace to output right
@@ -262,7 +270,8 @@ set $mode_window_resize Resize with [ctsr]
 mode "$mode_window_resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym space mode "$mode_switch"
+    bindsym Super_L mode "$mode_switch"
+    bindsym Super_R mode "$mode_switch"
 
     # Pressing left will shrink the window’s width.
     # Pressing right will grow the window’s width.
