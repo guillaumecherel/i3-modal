@@ -25,7 +25,7 @@ In any mode, use `Escape` or `Return` to leave the mode and go back to the defau
 
 # Installation
 
-Copy `config_modal` to your i3wm configuration file.
+Copy `config_modal_bepo` to your i3wm configuration file.
 
 # Configuration
 
