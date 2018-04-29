@@ -1,0 +1,9 @@
+#!/usr/bin/env stack
+-- stack --resolver lts-11.6 script
+
+import System.Process
+
+main :: IO ()
+main = do
+  input <- getContents
+  callProcess "xdotool" ["type", "--clearmodifiers", "--delay", "0", input]

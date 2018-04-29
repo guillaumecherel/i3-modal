@@ -88,7 +88,7 @@ mode "$mode_switch" {
     bindsym i mode "$mode_i3_special"
 }
 
-set $mode_launcher Launch application [space] terminal, [e]ditor, [w]eb, e[mail], [r]un command, [p] paste command output
+set $mode_launcher Launch application [space] terminal, [e]ditor, [w]eb, e[mail], [r]un command, [p]aste command output
 mode "$mode_launcher" {
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -105,13 +105,26 @@ mode "$mode_launcher" {
 
     # start space (a program launcher) and switch to insert mode if any item was selected and run them
     bindsym r exec $rofi -location 2 -width 100 -show run; mode default
-    # bindsym r exec $shell -c "dmenu_run_history -i"; mode default
-    # bindsym i exec "$shell -c \\"set -e flag; dmenu_history -i | while read out; set flag; fish -c $out; end; if set -q flag; i3-msg mode default; end\\""
+
+    # go to paste mode
+    bindsym p mode "$mode_paste"
+}
+
+set $mode_paste Paste [e]mail, [p]assword, [c]ommand output
+mode "$mode_paste" {
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym Super_L mode "$mode_switch"
+    bindsym Super_R mode "$mode_switch"
+
+    # paste password
+    bindsym p mode default; exec $shell -c "rofi_pass -location 2 -width 100 | xdotool_type_input"
+
+    # paste email addresses
+    bindsym e mode default; exec $shell -c "rofi_email -location 2 -width 100 | xdotool_type_input"
 
     # paste command output and switch to insert mode if any output was received
-    bindsym p mode default; exec $rofi -location 2 -width 100 -show run -run-command '/bin/sh -c \\"echo -n `{cmd}` | xdotool type --clearmodifiers --delay 0 --file -\\"'
-    # bindsym p mode default; exec $shell -c "dmenu_paste_history -i"
-    #bindsym d mode default; exec "$shell -c \\"set -e flag; dmenu_history -i | while read out; set flag; begin; fish -c $out | xdotool type --clearmodifiers --delay 0 --file -;end ; end; if set -q flag; i3-msg mode insert; end\\""
+    bindsym c mode default; exec $rofi -location 2 -width 100 -show run -run-command '/bin/sh -c \\"echo -n `{cmd}` | xdotool type --clearmodifiers --delay 0 --file -\\"'
 }
 
 set $mode_i3_special [C] reload configuration, [R] restart, [X] exit

@@ -1,0 +1,23 @@
+#!/usr/bin/env stack
+-- stack --resolver lts-11.6 script
+
+
+import qualified Data.Text as T
+import qualified Data.Text.IO as TIO
+import System.Environment
+import System.FilePath
+import System.Directory
+import System.Process
+
+getPassName :: FilePath -> FilePath -> FilePath -> String
+getPassName home passwordStoreDir f = dropExtension $ T.unpack $ T.replace (T.pack $ home </> passwordStoreDir ++ "/") (T.pack "") $ T.pack f
+
+main :: IO ()
+main = do
+    home <- getHomeDirectory
+    files <- fmap lines $ readProcess "find" [home </> ".password-store/", "-type", "f", "-name", "*.gpg"] ""
+    let passNames = fmap (getPassName home ".password-store") files
+    args <- getArgs
+    selectedPassName <- fmap (T.unpack . T.strip . T.pack) $ readProcess "rofi" ("-dmenu":args) (unlines passNames)
+    pass <- readProcess "pass" ["show", selectedPassName] ""
+    putStr $ head $ lines pass
