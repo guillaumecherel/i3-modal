@@ -19,7 +19,7 @@ exec --no-startup-id emacs --daemon
 exec --no-startup-id setxkbmap fr bepo
 
 # Applications
-set $terminal /home/guillaume/.local/bin/st
+set $terminal /home/guillaume/.local/bin/st -e tmux
 set $editor /usr/bin/emacsclient -c
 set $web /home/guillaume/.local/bin/firefox
 set $email /home/guillaume/.local/bin/astroid
