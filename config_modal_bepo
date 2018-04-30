@@ -53,12 +53,12 @@ bindsym Super_R mode "$mode_switch"
 # bindsym $mod+space mode "$mode_switch"
 set $mode_switch Mode [space] launcher, [ctsr<arrow><workspace>] navigate, [m]ove container, [l]ayout, move [w]orkspace, resi[z]e container, [i]3 special
 mode "$mode_switch" {
-    bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym space mode "default"
     bindsym Super_L mode "default"
     bindsym Super_R mode "default"
 
-    bindsym space mode "$mode_launcher"
+    bindsym Return mode "$mode_launcher"
     # bindsym j exec --no-startup-id $shell -c "dmenu_jump -i -l 20"; mode "default"
     bindsym j exec $rofi -location 2 -width 100 -show window; mode default
 
@@ -88,15 +88,15 @@ mode "$mode_switch" {
     bindsym i mode "$mode_i3_special"
 }
 
-set $mode_launcher Launch application [space] terminal, [e]ditor, [w]eb, e[mail], [r]un command, [p]aste command output
+set $mode_launcher Launch application [Return] terminal, [e]ditor, [w]eb, e[mail], [r]un command, [p]aste command output
 mode "$mode_launcher" {
     bindsym Escape mode "default"
-    bindsym Return mode "default"
+    bindsym space mode "default"
     bindsym Super_L mode "$mode_switch"
     bindsym Super_R mode "$mode_switch"
 
     # start a terminal
-    bindsym space exec "$terminal" ; mode "default"
+    bindsym Return exec "$terminal" ; mode "default"
 
     # start other frequent applications
     bindsym w exec "$web"; mode "default"
@@ -113,7 +113,7 @@ mode "$mode_launcher" {
 set $mode_paste Paste [e]mail, [p]assword, [c]ommand output
 mode "$mode_paste" {
     bindsym Escape mode "default"
-    bindsym Return mode "default"
+    bindsym space mode "default"
     bindsym Super_L mode "$mode_switch"
     bindsym Super_R mode "$mode_switch"
 
@@ -127,26 +127,26 @@ mode "$mode_paste" {
     bindsym c mode default; exec $rofi -location 2 -width 100 -show run -run-command '/bin/sh -c \\"echo -n `{cmd}` | xdotool type --clearmodifiers --delay 0 --file -\\"'
 }
 
-set $mode_i3_special [C] reload configuration, [R] restart, [X] exit
+set $mode_i3_special reload [c]onfiguration, [r]estart, e[x]it
 mode "$mode_i3_special" {
-    bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym space mode "default"
     bindsym Super_L mode "$mode_switch"
     bindsym Super_R mode "$mode_switch"
 
     # reload the configuration file
-    bindsym Shift+C reload
+    bindsym c reload
     # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-    bindsym Shift+R restart
+    bindsym r restart
     
     # exit i3 (logs you out of your X session)
-    bindsym Shift+X exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+    bindsym x exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 }
 
 set $mode_navigate Navigate [ctsr] or [<arrow>] move focus, [<workspace>] switch to workspace, [Shift+space] focus floating/tiling, [p] focus parent, [Shift+p] focus child
 mode "$mode_navigate" {
-    bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym space mode "default"
     bindsym Super_L mode "$mode_switch"
     bindsym Super_R mode "$mode_switch"
   
@@ -186,8 +186,8 @@ mode "$mode_navigate" {
 
 set $mode_move_container Move container [ctsr] or [<arrows>], [<workspace>] to workspace, [Shift+ctsr] to outputs, [Shift+K]ill container, [Shift+space] toggle floating/tiling
 mode "$mode_move_container" {
-    bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym space mode "default"
     bindsym Super_L mode "$mode_switch"
     bindsym Super_R mode "$mode_switch"
 
@@ -222,7 +222,7 @@ mode "$mode_move_container" {
     bindsym Shift+r move container to output down
 
     # kill focused window
-    bindsym Shift+K kill
+    bindsym k kill
 
     # toggle tiling / floating
     bindsym Shift+space floating toggle
@@ -230,8 +230,8 @@ mode "$mode_move_container" {
 
 set $mode_layout Layout split [h]orizontally, [v]ertically, [f]ullscreen, [s]tacking, [t]abbed, toggle s[p]lit, [Shift+space] toggle floating/tiling
 mode "$mode_layout" {
-    bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym space mode "default"
     bindsym Super_L mode "$mode_switch"
     bindsym Super_R mode "$mode_switch"
 
@@ -255,8 +255,8 @@ mode "$mode_layout" {
 
 set $mode_move_workspace Get workspace from [<workspace>] or move to output [ctsr]
 mode "$mode_move_workspace" {
-    bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym space mode "default"
     bindsym Super_L mode "$mode_switch"
     bindsym Super_R mode "$mode_switch"
 
@@ -281,8 +281,8 @@ mode "$mode_move_workspace" {
 
 set $mode_window_resize Resize with [ctsr]
 mode "$mode_window_resize" {
-    bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym space mode "default"
     bindsym Super_L mode "$mode_switch"
     bindsym Super_R mode "$mode_switch"
 
