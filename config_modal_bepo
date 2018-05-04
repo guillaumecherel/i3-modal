@@ -51,7 +51,7 @@ floating_modifier Mod4
 bindsym Super_L mode "$mode_switch"
 bindsym Super_R mode "$mode_switch"
 # bindsym $mod+space mode "$mode_switch"
-set $mode_switch Mode [Return] launcher, [ctsr<arrow><workspace>] navigate, [m]ove container, [l]ayout, move [w]orkspace, resi[z]e container, [i]3 special
+set $mode_switch Mode [Return] launcher, [ctsrpP<arrow><workspace>] navigate, [m]ove container, [l]ayout, move [w]orkspace, resi[z]e container, [i]3 special
 mode "$mode_switch" {
     bindsym Escape mode "default"
     bindsym space mode "default"
@@ -70,6 +70,8 @@ mode "$mode_switch" {
     bindsym Down focus down; mode "$mode_navigate"
     bindsym Up focus up; mode "$mode_navigate"
     bindsym Right focus right; mode "$mode_navigate"
+    bindsym p focus parent
+    bindsym Shift+p focus child
     bindsym quotedbl workspace 1; mode "$mode_navigate"
     bindsym guillemotleft workspace 2; mode "$mode_navigate"
     bindsym guillemotright workspace 3; mode "$mode_navigate"
