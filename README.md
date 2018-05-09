@@ -19,9 +19,13 @@ Interact with i3wm by switching to an appropriate mode. To do that, type `Super_
 
 Modes are self explanatory. When you are in a mode, the keybindings offered by the mode are displayed in the status bar.
 
-From any mode you can type `Super_L` to return to the "mode switching" mode. This means that you can go to navigation mode to select a window you want to move, switch to *move container* mode to move the window, switch again to *resize* mode to give it the size you want, then switch to the *layout* mode to split the container vertically, and switch to the *launcher* mode to open a new terminal in the splitted container. The type `Escape` or `Return` to go back to the default mode and start typing commands in your terminal.
+From any mode you can type `Super_L` to return to the "mode switching" mode. This means that you can go to navigation mode to select a window you want to move, switch to *move container* mode to move the window, switch again to *resize* mode to give it the size you want, then switch to the *layout* mode to split the container vertically, and switch to the *launcher* mode to open a new terminal in the splitted container.
 
-In any mode, use `Escape` or `Return` to leave the mode and go back to the default mode.
+In any mode, use `Escape` to leave the mode and go back to the default mode.
+
+`Return` is generally used to execute an action and switch back to default mode. The action depends on the mode. For example, in launcher mode, it launches a terminal. In navigate mode, it executes no action and only returns to default mode.
+
+`space` switches to the current modes "natural" alternate mode, that is the mode that one may naturally switch to from that mode. For example, from the navigate mode, space switches to move container mode.
 
 # Installation
 
